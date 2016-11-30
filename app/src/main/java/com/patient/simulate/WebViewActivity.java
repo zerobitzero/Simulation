@@ -345,6 +345,13 @@ public class WebViewActivity extends BaseActivity {
         @JavascriptInterface
         public void addToCartReady() {
             System.out.println("addToCartReady");
+            // TODO:目前没有生效
+            mDefaultHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mWebView.loadUrl("javascript:signOut()");
+                }
+            }, 2000);
         }
     }
 
@@ -371,54 +378,34 @@ public class WebViewActivity extends BaseActivity {
                 "            }\n" +
                 "        }\n" +
                 "    }\n" +
-                /*
-                "function clickByDataAsinId(dataAsinId) {\n" +
-                "        alert(dataAsinId);\n" +
-                "        var arr = document.getElementsByTagName('a');\n" +
-                "        alert('length' + arr.length);\n" +
-                "        if (arr.length > 0) {\n" +
-                "            for (var i = 0; i < arr.length; ++i) {\n" +
-                "                alert('index' + i);"+
-                "                alert(arr[i].data('asin'));\n" +
-                "                if (arr[i].data('asin') == dataAsinId) {\n" +
-                "                    alert('index' + i);\n" +
-                "                    var href = arr[i].href;\n" +
-                "                    alert(href);\n" +
-                "                    if (href.length > 5) {\n" +
-                "                        href = 'https://www.amazon.com' + href.substring(5);\n" +
-                "                    }\n" +
-                "                    alert(href);\n" +
-                "                    window.location.href = href;\n" +
-                "                    break;\n" +
-                "                }\n" +
-                "            }\n" +
+
+                "   function signOut() {\n" +
+                "        alert('signOut');\n" +
+                "        var arr = document.getElementsByClassName('nav-a');\n" +
+                "        if(arr) {\n" +
+                "           alert(arr.length);\n" +
+                "           for(var i = 0; i < arr.length; ++i) {\n" +
+                "               alert(i);\n" +
+                "               var item = arr[i];\n" +
+                "               if (item.innerHTML=='Sign Out') {\n" +
+                "                   var href = item.href;\n" +
+                "                   if(href) {\n" +
+                "                       alert(href);\n" +
+                "                       if (href.indexOf('http') != 0) {\n" +
+                "                           if (href.indexOf('data') == 0) {\n" +
+                "                               href = 'https://www.amazon.com' + href.substring(5);\n" +
+                "                           } else {\n" +
+                "                               href = 'https://www.amazon.com' + href;\n" +
+                "                           }\n" +
+                "                       }\n" +
+                "                       window.location.href = href;\n" +
+                "                       break;\n" +
+                "                   }\n" +
+                "               }\n" +
+                "           }\n" +
                 "        }\n" +
-                "    }"+
-                */
-                /*
-                "function clickByDataAsinId(dataAsinId) {\n" +
-                "        alert(dataAsinId);\n" +
-                "        var arr = document.getElementsByTagName('a');\n" +
-//                "        alert('length' + arr.length);\n" +
-                "        if (arr.length > 0) {\n" +
-                "            for (var i = 0; i < arr.length; ++i) {\n" +
-                "                alert('index' + i);\n" +
-                "                var href = arr[i].href;\n" +
-                "                if (href) {\n" +
-//                "                    alert(href);\n" +
-                "                    if (href.indexOf(dataAsinId) > 0) {\n" +
-                "                        if (href.length > 5 && href.indexOf('http') != 0) {\n" +
-                "                            href = 'https://www.amazon.com' + href.substring(5);\n" +
-                "                        }\n" +
-                "                        alert(href);\n" +
-                "                        window.location.href = href;\n" +
-                "                        break;\n" +
-                "                    }\n" +
-                "                }\n" +
-                "            }\n" +
-                "        }\n" +
-                "    }" +
-                */
+                "    }\n" +
+
                 "function clickByDataAsinId(dataAsinId) {\n" +
                 /*
                 "var btn = document.getElementById('add-to-cart-button');\n" +
@@ -433,9 +420,9 @@ public class WebViewActivity extends BaseActivity {
                 */
                 "        var formTmp = document.getElementById('addToCart');\n" +
                 "        if (formTmp) {\n" +
-                "            alert('todo submit');\n" +
+//                "            alert('todo submit');\n" +
                 "            var actionTmp = formTmp.getAttribute('action');\n" +
-                "            alert(actionTmp);\n" +
+//                "            alert(actionTmp);\n" +
                 "            if (actionTmp.indexOf('http') != 0) {actionTmp = 'https://www.amazon.com' + actionTmp;}\n" +
                 "            formTmp.setAttribute('action', actionTmp); " +
                 "            formTmp.submit();\n" +
@@ -477,6 +464,7 @@ public class WebViewActivity extends BaseActivity {
                 "if(!findIt){clickByValue('Next →');}\n" +
                 "    }\n" +
 
+
                 "</script>\n" +
                 "</body>";
         final String dealResult = result.replace(target, replace);
@@ -505,7 +493,7 @@ public class WebViewActivity extends BaseActivity {
                         */
                     }
                 };
-                mDefaultHandler.postDelayed(runnable, 15000);
+                mDefaultHandler.postDelayed(runnable, 20000);
             }
         };
         mDefaultHandler.post(reloadRunnable);
